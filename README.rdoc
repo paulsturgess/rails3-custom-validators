@@ -1,0 +1,12 @@
+= Rails 3 Custom Validators
+
+* Drop the <code>_validator.rb</code> file in /lib
+* Autoload the lib file by updating your application.rb with: <tt>config.autoload_paths += %W(#{config.root}/lib)</tt>
+
+== DateValidator
+A very basic date validator that allows you to specify a date that the object's date must be after
+
+   class Batch < ActiveRecord::Base
+       attr_accessor :start_date, :end_date
+       validates :end_date, :date => {:after => {:message => "must be after the start date", :value => lambda { |batch|  batch.start_date}}}
+   end
