@@ -4,14 +4,19 @@
 * Autoload the lib file by updating your application.rb with: <tt>config.autoload_paths += %W(#{config.root}/lib)</tt>
 
 == DateValidator
-A very basic date validator that allows you to specify a date that the object's date must be after
+A very basic date validator that allows you to specify a date that the object's date must be before or after.
+
+Example syntax:
 
    class Batch < ActiveRecord::Base
        attr_accessor :start_date, :end_date
        validates :end_date, :date => {:after => {:message => "must be after the start date", :value => lambda { |batch|  batch.start_date}}}
    end
 
-You can also specify <tt>:on_or_after</tt>
+You can also specify: 
+* <tt>:on_or_after</tt>
+* <tt>:before</tt>
+* <tt>:on_or_before</tt>
 
 === Todo
-Add <tt>:before</tt> and <tt>:on_or_before</tt> options
+Play nicely with Rails i18n.
