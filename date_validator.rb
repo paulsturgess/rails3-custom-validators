@@ -10,6 +10,14 @@ class DateValidator < ActiveModel::EachValidator
       on_or_after_value = options[:on_or_after][:value].call(object)
       object.errors[attribute] << "#{options[:on_or_after][:message]}" if on_or_after_value && (value < on_or_after_value)
     end
+    if options[:before]
+      before_value = options[:before][:value].call(object)
+      object.errors[attribute] << "#{options[:before][:message]}" if before_value && (value >= before_value)
+    end
+    if options[:on_or_before]
+      on_or_before_value = options[:on_or_before][:value].call(object)
+      object.errors[attribute] << "#{options[:on_or_before][:message]}" if on_or_before_value && (value > on_or_before_value)
+    end
   end
   
 end
